@@ -1,6 +1,9 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User, AbstractUser
 
+class CustomUser(AbstractUser):
+    # Добавить дополнительные поля, если необходимо
+    pass
 
 class Mouse(models.Model):
     GENDER_CHOICES = [
