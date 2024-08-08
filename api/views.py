@@ -10,7 +10,7 @@ from django.http import HttpResponse
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import get_user_model
 
-User = get_user_model()  # Add this line to import the user model
+User = get_user_model()
 
 def register(request):
     if request.method == 'POST':
@@ -24,11 +24,20 @@ def register(request):
     return render(request, 'register.html', {'form': form})
 
 def index(request):
-    return HttpResponse("Welcome to the Mouse Colony SPA API")
+    return HttpResponse("Welcome to the Mouse Colony Manager API. Go to /admin or /api for more information.")
 
 class MouseViewSet(viewsets.ModelViewSet):
     queryset = Mouse.objects.all()
     serializer_class = MouseSerializer
+
+    def perform_create(self, serializer):
+        serializer.save()
+
+    def perform_update(self, serializer):
+        serializer.save()
+
+    def perform_destroy(self, instance):
+        instance.delete()
 
 class CageViewSet(viewsets.ModelViewSet):
     queryset = Cage.objects.all()
